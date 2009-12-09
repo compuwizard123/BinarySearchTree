@@ -270,24 +270,20 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		 */
 		public BinaryNode remove(T item, modWrapper mod) {
 			if(left == null && right == null) {
-				if(item.compareTo(element) != 0) {
-					throw new NoSuchElementException();
+				if(item.compareTo(element) == 0) {
+					mod.setTrue();
+					return null;
 				}
-				mod.setTrue();
-				return null;
+				return this;
 			} else if(right == null) {
 				if(item.compareTo(element) < 0) {
 					left = left.remove(item, mod);
-				} else if(item.compareTo(element) > 0) {
-					throw new NoSuchElementException();
 				}
 				mod.setTrue();
 				return left;
 			} else if(left == null) {
 				if(item.compareTo(element) > 0) {
 					right = right.remove(item, mod);
-				} else if(item.compareTo(element) < 0) {
-					throw new NoSuchElementException();
 				}
 				mod.setTrue();
 				return right;
@@ -303,7 +299,6 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 					largestChildNode.element = temp;
 					left = left.remove(temp, mod);
 				}
-				mod.setTrue();
 				return this;
 			}
 		}

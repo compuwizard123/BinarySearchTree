@@ -80,7 +80,8 @@ public class Testing_Remove extends TestCase{
 		b.insert(7);
 		b.insert(1);
 		b.insert(3);
-		b.remove(7);
+		assertTrue(b.remove(7));
+		assertFalse(b.remove(100));
 		assertEquals("[1], [2], [3], [5], [10], [15]", b.toString());
 		Integer[] m = {10, 5, 2, 1, 3, 15};
 		boolean boo[] = {true, true, true, true, true, false}; 
@@ -93,7 +94,7 @@ public class Testing_Remove extends TestCase{
 		points += 6;
 		
 		// Remove node with 1 child from complex tree.	
-		b.remove(5);
+		assertTrue(b.remove(5));
 		assertEquals("[1], [2], [3], [10], [15]", b.toString());
 		Integer[] n = {10, 2, 1, 3, 15};
 		boolean boo2[] = {true, true, true, true, false}; 
@@ -106,7 +107,7 @@ public class Testing_Remove extends TestCase{
 		points += 6;
 		
 		// Remove node with 2 children from complex tree.	
-		b.remove(10);
+		assertTrue(b.remove(10));
 		assertEquals("[1], [2], [3], [15]", b.toString());
 		Integer[] p = {3, 2, 1, 15};
 		boolean boo3[] = {true, true, true, false}; 
