@@ -351,6 +351,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	 */
 	private class preOrderTreeIterator implements Iterator<T> {
 		private Stack<BinaryNode> list = new Stack<BinaryNode>();
+		private BinaryNode node = null;
 		private int mod;
 		
 		/**
@@ -409,10 +410,16 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Removes an element from the BinarySearchTree
 		 * 
-		 * @exception	UnsupportedOperationException
+		 * @exception	IllegalStateException if next() not called before
 		 */
 		public void remove() {
-			throw new UnsupportedOperationException();
+			if(node == null) {
+				throw new IllegalStateException();
+			}
+			if(BinarySearchTree.this.remove(node.element)) {
+				node = null;
+				mod++;
+			}
 		}
 	}
 	
@@ -423,6 +430,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	 */
 	private class inOrderTreeIterator implements Iterator<T> {
 		private Stack<BinaryNode> list = new Stack<BinaryNode>();
+		private BinaryNode node = null;
 		private int mod;
 		
 		/**
@@ -465,6 +473,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 			}
 			item = list.pop();
 			checkLeft(item.right);
+			node = item;
 			return item.element;
 		}
 
@@ -483,10 +492,16 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Removes an element from the BinarySearchTree
 		 * 
-		 * @exception	UnsupportedOperationException
+		 * @exception	IllegalStateException if next() not called before
 		 */
 		public void remove() {
-			throw new UnsupportedOperationException();		
+			if(node == null) {
+				throw new IllegalStateException();
+			}
+			if(BinarySearchTree.this.remove(node.element)) {
+				node = null;
+				mod++;
+			}
 		}
 	}
 }
