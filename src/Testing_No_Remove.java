@@ -214,6 +214,9 @@ public class Testing_No_Remove extends TestCase{
 			}
 		}
 		points += 2;
+	}
+	
+	public void testPrintPoints(){
 		System.out.println(points);
 	}
 	

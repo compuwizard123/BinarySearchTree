@@ -249,7 +249,7 @@ public class Testing_with_Iterator_Remove extends TestCase{
 		points += 1;
 	}
 	
-	public void testNothing(){
+	public void testPrintPoints(){
 		System.out.println(points);
 	}
 	

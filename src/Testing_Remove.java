@@ -118,6 +118,9 @@ public class Testing_Remove extends TestCase{
 			assertEquals(boo3[k], i.hasNext());
 		}
 		points += 2;
+	}
+	
+	public void testPrintPoints(){
 		System.out.println(points);
 	}
 	
