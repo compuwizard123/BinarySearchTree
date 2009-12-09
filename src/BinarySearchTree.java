@@ -145,6 +145,9 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		if(root != null) {
 			root = root.remove(item, mod);
 		}
+		if(mod.getValue()) {
+			modCount++;
+		}
 		return mod.getValue();
 	}
 	
