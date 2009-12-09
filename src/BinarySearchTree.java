@@ -151,10 +151,14 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		return mod.getValue();
 	}
 	
+	//TODO check if exception valid for get() method
+	
 	/**
-	 * TODO add JavaDoc
-	 * @param item
-	 * @return
+	 * Get method that returns a pointer to the item provided
+	 * 
+	 * @param item item to be found in the BinarySearchTree
+	 * @return pointer to item if found; null if not found
+	 * @exception IllegalArgumentException if item is null
 	 */
 	public T get(T item) {
 		if(item == null) {
@@ -335,9 +339,10 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		}
 		
 		/**
-		 * TODO add JavaDoc
-		 * @param item
-		 * @return
+		 * Get method that returns a pointer to the item provided
+		 * 
+		 * @param item item to be found in the BinaryNode
+		 * @return pointer to item if found; null if not found
 		 */
 		public T get(T item) {
 			if(item.compareTo(element) > 0) {
