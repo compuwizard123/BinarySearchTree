@@ -152,6 +152,18 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	}
 	
 	/**
+	 * TODO add JavaDoc
+	 * @param item
+	 * @return
+	 */
+	public T get(T item) {
+		if(item == null) {
+			throw new IllegalArgumentException();
+		}
+		return root.get(item);
+	}
+	
+	/**
 	 * A BinaryNode Implementation Class
 	 * @author risdenkj
 	 * 
@@ -320,6 +332,21 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 				node = node.right;
 			}
 			return node;
+		}
+		
+		/**
+		 * TODO add JavaDoc
+		 * @param item
+		 * @return
+		 */
+		public T get(T item) {
+			if(item.compareTo(element) > 0) {
+				return right.get(item);
+			} else if(item.compareTo(element) < 0) {
+				return left.get(item);
+			} else {
+				return element;
+			}
 		}
 	}
 	
