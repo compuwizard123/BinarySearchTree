@@ -25,7 +25,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	/**
 	 * Checks if the BinarySearchTree has no nodes
 	 * 
-	 * @return true if the BinarySearchTree has no nodes; false if has nodes
+	 * @return 	true if the BinarySearchTree has no nodes; false if has nodes
 	 */
 	public boolean isEmpty() {
 		return root == null ? true : false;
@@ -34,7 +34,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	/**
 	 * Default iterator method returns the nodes in order
 	 * 
-	 * @return an iterator to traverse the nodes in order 
+	 * @return 	an iterator to traverse the nodes in order 
 	 */
 	public Iterator<T> iterator() {
 		return new inOrderTreeIterator(root);
@@ -43,7 +43,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	/**
 	 * Iterator that returns the nodes in preorder
 	 * 
-	 * @return an iterator to traverse the nodes in preorder
+	 * @return 	an iterator to traverse the nodes in preorder
 	 */
 	public Iterator<T> preOrderIterator() {
 		return new preOrderTreeIterator(root);
@@ -52,7 +52,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	/**
 	 * Method that returns an ArrayList representation of the BinarySearchTree
 	 * 
-	 * @return ArrayList with the nodes in order
+	 * @return 	ArrayList with the nodes in order
 	 */
 	public ArrayList<T> toArrayList() {
 		if(root == null) { 
@@ -64,7 +64,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	/**
 	 * Method that returns an Array representation of the BinarySearchTree
 	 * 
-	 * @return Array with the nodes in order
+	 * @return 	Array with the nodes in order
 	 */
 	public Object[] toArray() {
 		return toArrayList().toArray();
@@ -73,7 +73,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	/**
 	 * Method to determine the height of the BinarySearchTree
 	 * 
-	 * @return height of the BinarySearchTree; -1 if BinarySearchTree is empty
+	 * @return 	height of the BinarySearchTree; -1 if BinarySearchTree is empty
 	 */
 	public int height(){
 		return !isEmpty() ? root.height() : -1;
@@ -82,7 +82,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	/**
 	 * Method that returns a String representation of the BinarySearchTree
 	 * 
-	 * @return string in [element, element] format with the BinarySearchTree BinaryNodes in order 
+	 * @return 	string in [element, element] format with the BinarySearchTree BinaryNodes in order 
 	 */
 	public String toString() {
 		String temp = "";
@@ -102,7 +102,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	/**
 	 * Method to determine the size of the BinarySearchTree
 	 * 
-	 * @return size of the BinarySearchTree; 0 if BinarySearchTree is empty
+	 * @return 	size of the BinarySearchTree; 0 if BinarySearchTree is empty
 	 */
 	public int size() {
 		return !isEmpty() ? root.size() : 0;
@@ -131,10 +131,11 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	}
 	
 	/**
-	 * TODO JavaDoc
+	 * Removes the provided item from the BinarySearchTree
 	 * 
-	 * @param item	
-	 * @return	
+	 * @param item	the item that will be removed from the BinarySearchTree
+	 * @return		true if remove successful; false if not
+	 * @exception	IllegalArgumentException if item is null
 	 */
 	public boolean remove(T item) {
 		modWrapper mod = new modWrapper();
@@ -160,7 +161,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		 * Constructs a BinaryNode
 		 * Sets the left and right children to null
 		 * 
-		 * @param initelement The element that becomes the BinaryNode
+		 * @param initelement	The element that becomes the BinaryNode
 		 */
 		public BinaryNode(T initelement) {
 			element = initelement;
@@ -171,7 +172,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Returns the string representation of the current BinaryNode
 		 * 
-		 * @return string of the current BinaryNode
+		 * @return	string of the current BinaryNode
 		 */
 		public String toString() {
 			return element.toString();
@@ -180,8 +181,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Recursive method that returns an ArrayList of the BinaryNode and its children
 		 * 
-		 * @param list the ArrayList that elements should be added onto
-		 * @return ArrayList of the BinaryNode and its children
+		 * @param list	the ArrayList that elements should be added onto
+		 * @return 	ArrayList of the BinaryNode and its children
 		 */
 		public ArrayList<T> toArrayList(ArrayList<T> list) {
 			if(left != null) {
@@ -197,7 +198,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Method that determines the height of the BinaryNode
 		 * 
-		 * @return height of the BinaryNode
+		 * @return 	height of the BinaryNode
 		 */
 		public int height() {
 			int leftheight = 0, rightheight = 0;
@@ -217,7 +218,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Method that determines the size of the BinaryNode 
 		 * 
-		 * @return size of the BinaryNode
+		 * @return 	size of the BinaryNode
 		 */
 		public int size() {
 			int size = 1;
@@ -234,10 +235,10 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		 * Inserts the provided element as a child to the BinaryNode
 		 * The item becomes a left child if less than current BinaryNode
 		 * The item becomes a right child if greater than current BinaryNode
-		 * If the insert is successful sets the modification boolean flag to true
+		 * If the insert is successful adds 1 to the modCount
 		 * 
-		 * @param item item to be inserted as a child to the BinaryNode
-		 * @return true if insert successful; false if not
+		 * @param item	item to be inserted as a child to the BinaryNode
+		 * @return 	true if insert successful; false if not
 		 */
 		public boolean insert(T item) {
 			if(element.compareTo(item) < 0) {
@@ -262,11 +263,13 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		}
 		
 		/**
-		 * TODO JavaDoc
+		 * Removes the provided item from the BinaryNode
+		 * In the event of the BinaryNode having two children, the
+		 * algorithm finds the largest left child.
 		 * 
-		 * @param item
-		 * @param mod
-		 * @return
+		 * @param item 	the item that will be removed from the BinaryNode
+		 * @param mod 	ModWrapper boolean that will be set to true if remove successful
+		 * @return 	BinaryNode that is removed
 		 */
 		public BinaryNode remove(T item, modWrapper mod) {
 			if(left == null && right == null) {
@@ -304,10 +307,10 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		}
 		
 		/**
-		 * TODO JavaDoc
+		 * Method that finds the largest left child
 		 * 
-		 * @param node
-		 * @return
+		 * @param node	BinaryNode to look for largest left child
+		 * @return 	the largest left child of the provided BinaryNode
 		 */
 		public BinaryNode findLargestChild(BinaryNode node) {
 			while(node.right != null) {
@@ -320,11 +323,11 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	/**
 	 * Creates a wrapper for the mod boolean
 	 * @author risdenkj
-	 * TODO JavaDoc
+	 * 
 	 */
 	private class modWrapper {
 		private boolean mod = false;
-
+		
 		public void setTrue() {
 			this.mod = true;
 		}
@@ -351,7 +354,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		 * Constructs a preOrderTreeIterator
 		 * Sets the modification boolean flag to false
 		 * 
-		 * @param node BinaryNode to start the iterator from
+		 * @param node	BinaryNode to start the iterator from
 		 */
 		public preOrderTreeIterator(BinaryNode node) {
 			if(node != null) {
@@ -363,7 +366,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Checks if there is another element in the BinarySearchTree that hasn't been accessed
 		 * 
-		 * @return true if there is another element to return; false if not
+		 * @return	true if there is another element to return; false if not
 		 */
 		public boolean hasNext() {
 			if(!list.empty()) {
@@ -375,9 +378,9 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Method that returns the next BinaryNode element from the BinarySearchTree
 		 * 
-		 * @return BinaryNode element in the BinarySearchTree
-		 * @exception ConcurrentModificationException if the BinarySearchTree was modified after initializing the iterator
-		 * @exception NoSuchElementException if there are no more elements to return
+		 * @return BinaryNode	element in the BinarySearchTree
+		 * @exception 	ConcurrentModificationException if the BinarySearchTree was modified after initializing the iterator
+		 * @exception 	NoSuchElementException if there are no more elements to return
 		 */
 		public T next() {
 			if(this.mod != modCount) {
@@ -403,7 +406,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Removes an element from the BinarySearchTree
 		 * 
-		 * @exception UnsupportedOperationException
+		 * @exception	UnsupportedOperationException
 		 */
 		public void remove() {
 			throw new UnsupportedOperationException();
@@ -423,7 +426,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		 * Constructs an inOrderTreeIterator
 		 * Sets the modification boolean flag to false
 		 * 
-		 * @param node BinaryNode to start the iterator from
+		 * @param node	BinaryNode to start the iterator from
 		 */
 		public inOrderTreeIterator(BinaryNode node) {
 			this.mod = modCount;
@@ -433,7 +436,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Checks if there is another element in the BinarySearchTree that hasn't been accessed
 		 * 
-		 * @return true if there is another element to return; false if not
+		 * @return 	true if there is another element to return; false if not
 		 */
 		public boolean hasNext() {
 			if(!list.empty()) {
@@ -445,9 +448,9 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Method that returns the next BinaryNode element from the BinarySearchTree
 		 * 
-		 * @return BinaryNode element in the BinarySearchTree
-		 * @exception ConcurrentModificationException if the BinarySearchTree was modified after initializing the iterator
-		 * @exception NoSuchElementException if there are no more elements to return
+		 * @return BinaryNode	element in the BinarySearchTree
+		 * @exception 	ConcurrentModificationException if the BinarySearchTree was modified after initializing the iterator
+		 * @exception 	NoSuchElementException if there are no more elements to return
 		 */
 		public T next() {
 			if(this.mod != modCount) {
@@ -465,7 +468,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Checks if the provided BinaryNode has a left child
 		 * 
-		 * @param node node to to check if it has a left child
+		 * @param node	node to to check if it has a left child
 		 */
 		public void checkLeft(BinaryNode node) {
 			while(node != null) {
@@ -477,7 +480,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		/**
 		 * Removes an element from the BinarySearchTree
 		 * 
-		 * @exception UnsupportedOperationException
+		 * @exception	UnsupportedOperationException
 		 */
 		public void remove() {
 			throw new UnsupportedOperationException();		
