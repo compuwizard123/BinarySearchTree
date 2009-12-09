@@ -12,14 +12,13 @@ import java.util.Stack;
 
 public class BinarySearchTree<T extends Comparable<? super T>> implements Iterable<T> {
 	private BinaryNode root;
-	private boolean mod;
+	private int modCount = 0;
 	
 	/**
 	 * Constructs a BinarySearchTree
-	 * Sets the root to null and the modified boolean flag to false
+	 * Sets the root to null
 	 */
 	public BinarySearchTree() {
-		mod = false;
 		root = null;
 	}
 
@@ -126,9 +125,26 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 			return root.insert(item);
 		} else {
 			root = new BinaryNode(item);
-			mod = true;
+			modCount++;
 			return true;
 		} 
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param item	
+	 * @return	
+	 */
+	public boolean remove(T item) {
+		modWrapper mod = new modWrapper();
+		if(item == null) {
+			throw new IllegalArgumentException();
+		}
+		if(root != null) {
+			root = root.remove(item, mod);
+		}
+		return mod.getValue();
 	}
 	
 	/**
@@ -204,14 +220,14 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		 * @return size of the BinaryNode
 		 */
 		public int size() {
-			int leftsize = 0, rightsize = 0;
+			int size = 1;
 			if(left != null) {
-				leftsize = left.size();
+				size += left.size();
 			}
 			if(right != null) {
-				rightsize = right.size();
+				size += right.size();
 			}
-			return 1 + rightsize + leftsize;
+			return size;
 		}
 		
 		/**
@@ -229,7 +245,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 					return right.insert(item);
 				} else {
 					right = new BinaryNode(item);
-					mod = true;
+					modCount++;
 					return true;
 				}
 			} else if(element.compareTo(item) > 0){
@@ -237,22 +253,104 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 					return left.insert(item);
 				} else {
 					left = new BinaryNode(item);
-					mod = true;
+					modCount++;
 					return true;
 				}
 			} else {
 				return false;
 			}
 		}
+		
+		/**
+		 * 
+		 * 
+		 * @param item
+		 * @param mod
+		 * @return
+		 */
+		public BinaryNode remove(T item, modWrapper mod) {
+			if(left == null && right == null) {
+				if(item.compareTo(element) != 0) {
+					throw new NoSuchElementException();
+				}
+				mod.setTrue();
+				return null;
+			} else if(right == null) {
+				if(item.compareTo(element) < 0) {
+					left = left.remove(item, mod);
+				} else if(item.compareTo(element) > 0) {
+					throw new NoSuchElementException();
+				}
+				mod.setTrue();
+				return left;
+			} else if(left == null) {
+				if(item.compareTo(element) > 0) {
+					right = right.remove(item, mod);
+				} else if(item.compareTo(element) < 0) {
+					throw new NoSuchElementException();
+				}
+				mod.setTrue();
+				return right;
+			} else {
+				if(item.compareTo(element) > 0) {
+					right = right.remove(item,mod);
+				} else if(item.compareTo(element) < 0) {
+					left = left.remove(item, mod);
+				} else {
+					T temp = element;
+					BinaryNode largestChildNode = findLargestChild(left);
+					element = largestChildNode.element;
+					largestChildNode.element = temp;
+					left = left.remove(temp, mod);
+				}
+				mod.setTrue();
+				return this;
+			}
+		}
+		
+		/**
+		 * 
+		 * 
+		 * @param node
+		 * @return
+		 */
+		public BinaryNode findLargestChild(BinaryNode node) {
+			while(node.right != null) {
+				node = node.right;
+			}
+			return node;
+		}
 	}
 	
 	/**
-	 * A pre order BinarySearchTree iterator implementation class
+	 * Creates a wrapper for the mod boolean
+	 * @author risdenkj
+	 *
+	 */
+	private class modWrapper {
+		private boolean mod = false;
+
+		public void setTrue() {
+			this.mod = true;
+		}
+		
+		public void setFalse() {
+			this.mod = false;
+		}
+
+		public boolean getValue() {
+			return mod;
+		}
+	}
+	
+	/**
+	 * A preorder BinarySearchTree iterator implementation class
 	 * @author risdenkj
 	 * 
 	 */
 	private class preOrderTreeIterator implements Iterator<T> {
 		private Stack<BinaryNode> list = new Stack<BinaryNode>();
+		private int mod;
 		
 		/**
 		 * Constructs a preOrderTreeIterator
@@ -263,7 +361,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		public preOrderTreeIterator(BinaryNode node) {
 			if(node != null) {
 				list.push(node);
-				mod = false;
+				this.mod = modCount;
 			}
 		}
 		
@@ -287,7 +385,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		 * @exception NoSuchElementException if there are no more elements to return
 		 */
 		public T next() {
-			if(mod == true) {
+			if(this.mod != modCount) {
 				throw new ConcurrentModificationException();
 			}
 			BinaryNode item = null;
@@ -324,6 +422,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	 */
 	private class inOrderTreeIterator implements Iterator<T> {
 		private Stack<BinaryNode> list = new Stack<BinaryNode>();
+		private int mod;
 		
 		/**
 		 * Constructs an inOrderTreeIterator
@@ -332,7 +431,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		 * @param node BinaryNode to start the iterator from
 		 */
 		public inOrderTreeIterator(BinaryNode node) {
-			mod = false;
+			this.mod = modCount;
 			checkLeft(node);
 		}
 		
@@ -356,7 +455,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		 * @exception NoSuchElementException if there are no more elements to return
 		 */
 		public T next() {
-			if(mod == true) {
+			if(this.mod != modCount) {
 				throw new ConcurrentModificationException();
 			}
 			BinaryNode item = null;
