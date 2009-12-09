@@ -431,6 +431,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 			if(item.left != null) {
 				list.push(item.left);
 			}
+			node = item;
 			return item.element;
 		}
 		
