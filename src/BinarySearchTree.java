@@ -55,7 +55,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 	 * @return 	ArrayList with the nodes in order
 	 */
 	public ArrayList<T> toArrayList() {
-		if(root == null) { 
+		if(root == null) {
 			return new ArrayList<T>();
 		}
 		return root.toArrayList(new ArrayList<T>());
@@ -150,8 +150,6 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		}
 		return mod.getValue();
 	}
-	
-	//TODO check if exception valid for get() method
 	
 	/**
 	 * Get method that returns a pointer to the item provided
@@ -405,10 +403,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		 * @return	true if there is another element to return; false if not
 		 */
 		public boolean hasNext() {
-			if(!list.empty()) {
-				return true;
-			}
-			return false;
+			return !list.empty();
 		}
 
 		/**
@@ -483,10 +478,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Iterab
 		 * @return 	true if there is another element to return; false if not
 		 */
 		public boolean hasNext() {
-			if(!list.empty()) {
-				return true;
-			}
-			return false;
+			return !list.empty();
 		}
 		
 		/**
